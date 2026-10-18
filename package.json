@@ -1,0 +1,69 @@
+{
+  "name": "agentforge",
+  "displayName": "AgentForge",
+  "description": "Universal Agent & Skills Engineering Platform for designing, testing, and orchestrating AI skills, agents, and multi-agent workflows.",
+  "version": "0.1.0",
+  "publisher": "agentforge",
+  "license": "MIT",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other", "Visualization", "AI"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        { "id": "agentforge", "title": "AgentForge", "icon": "resources/icon.svg" }
+      ]
+    },
+    "views": {
+      "agentforge": [
+        { "id": "agentforge.webview", "name": "AgentForge", "type": "webview" }
+      ]
+    },
+    "commands": [
+      { "command": "agentforge.open", "title": "AgentForge: Open Platform" },
+      { "command": "agentforge.resetSampleData", "title": "AgentForge: Reset Sample Data" }
+    ],
+    "configuration": {
+      "title": "AgentForge",
+      "properties": {
+        "agentforge.defaultTimeoutMs": { "type": "number", "default": 30000, "description": "Default per-node timeout (ms) for pipeline simulation" },
+        "agentforge.defaultRetries": { "type": "number", "default": 1, "description": "Default retries for pipeline simulation nodes" },
+        "agentforge.approvalBehavior": { "type": "string", "enum": ["pause", "auto-approve"], "default": "pause", "description": "Whether approval nodes pause the simulation or auto-approve" },
+        "agentforge.confirmDestructive": { "type": "boolean", "default": true, "description": "Ask for confirmation before destructive actions" }
+      }
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p .",
+    "build": "node esbuild.js",
+    "webview": "vite build --config webview-ui/vite.config.ts",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "vsix": "vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.54.0",
+    "zod": "^3.24.1",
+    "lucide-react": "^0.469.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/vscode": "^1.85.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.2",
+    "eslint": "^9.16.0",
+    "@eslint/js": "^9.16.0",
+    "typescript-eslint": "^8.18.0",
+    "vitest": "^2.1.8",
+    "@testing-library/react": "^16.1.0",
+    "jsdom": "^25.0.1",
+    "@vscode/vsce": "^3.2.0"
+  }
+}
